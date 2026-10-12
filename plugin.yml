@@ -1,0 +1,23 @@
+name: TrixerAnticheat
+version: '${project.version}'
+main: dev.trixer.anticheat.TrixerAnticheat
+api-version: '1.21'
+author: Blue
+description: Trixer Anticheat (AE) - movement anticheat with a VL system.
+
+commands:
+  trixer:
+    description: Trixer Anticheat command
+    usage: /trixer <reload|alerts|vl|reset>
+    aliases: [ae, anticheat]
+
+permissions:
+  trixer.admin:
+    description: Reload config, view and reset VL
+    default: op
+  trixer.alerts:
+    description: Receive anticheat alerts
+    default: op
+  trixer.bypass:
+    description: Bypass all checks
+    default: false
