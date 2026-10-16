@@ -1,0 +1,115 @@
+# ==========================================
+#   Trixer Anticheat (AE)
+# ==========================================
+
+# Teleport the player back to their last safe location when a movement check flags
+setback: true
+
+# Cancel the hit / interaction when a combat check flags (Reach, KillAura, crystals, anchors)
+cancel-hits: true
+
+# Also print alerts to the console
+alerts-to-console: true
+
+# VL decay: every <interval> seconds each VL drops by <amount>
+# (the interval needs a server restart to apply)
+vl-decay-interval: 30
+vl-decay-amount: 1.0
+
+# Auto kick: shown when a player's VL reaches max-vl of a check
+# (max-vl is set per check below). %check% = check name
+kick-message: "&b[Trixer] Unfair Advantage"
+
+# Every check can be switched off with enabled: false.
+# buffer = violations in a row before a flag (higher = fewer false positives)
+# Flight and BoatFlight are tuned strict, everything below them is tuned lenient.
+checks:
+  flight:
+    enabled: true
+    max-vl: 15
+    buffer: 4
+    # Allowed difference from vanilla gravity, per tick
+    tolerance: 0.03
+    # Ticks standing still in mid-air before Flight (B) flags
+    stationary-ticks: 40
+  boatflight:
+    enabled: true
+    max-vl: 10
+    buffer: 6
+  nofall:
+    enabled: true
+    max-vl: 20
+    buffer: 6
+    # Minimum fall distance (blocks) that must hurt
+    min-fall: 6.0
+    # No fall-damage check after a mace hit / wind charge / wind burst launch
+    boost-exempt-ms: 12000
+  jesus:
+    enabled: true
+    max-vl: 20
+    # Moves in a row on the liquid surface before a flag
+    ticks: 25
+  autototem:
+    enabled: true
+    max-vl: 12
+    # Minimum human reaction time after a totem pop (ping is subtracted)
+    min-reaction-ms: 30
+    buffer: 4
+  antiknockback:
+    enabled: true
+    max-vl: 15
+    # Player must move at least this share of the knockback speed
+    ratio: 0.15
+    buffer: 6
+  killaura:
+    enabled: true
+    max-vl: 20
+    # Max angle (degrees) between the crosshair and the target
+    angle: 90
+    # Different targets hit within 0.7s
+    max-targets: 6
+    buffer: 6
+    # Flag hits through walls (can false flag around corners)
+    check-walls: false
+  reach:
+    enabled: true
+    max-vl: 20
+    base-range: 3.0
+    tolerance: 1.0
+    buffer: 6
+  autocrystal:
+    enabled: true
+    max-vl: 15
+    # Crystal broken faster than this after placing
+    min-delay-ms: 25
+    max-breaks-per-second: 22
+    buffer: 6
+  crystalaura:
+    enabled: true
+    max-vl: 15
+    max-places-per-second: 16
+    reach: 5.5
+    angle: 100
+    # Flag crystal hits through walls (can false flag on obsidian)
+    check-walls: false
+  autoanchor:
+    enabled: true
+    max-vl: 12
+    # Place -> explode and charge -> explode faster than this
+    min-total-ms: 120
+    min-charge-ms: 40
+    buffer: 4
+  anchoraura:
+    enabled: true
+    max-vl: 12
+    max-places: 8
+    reach: 6.5
+    angle: 90
+
+messages:
+  alert: "&b[Trixer] &f%player% &7failed &c%check% (%type%) &7VL: &f%vl% &8| %info% &8| %ping%ms"
+  reloaded: "&aTrixer Anticheat config reloaded."
+  alerts-on: "&aAlerts enabled."
+  alerts-off: "&cAlerts disabled."
+  no-permission: "&cYou don't have permission."
+  player-not-found: "&cPlayer not found."
